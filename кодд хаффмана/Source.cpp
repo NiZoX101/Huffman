@@ -32,7 +32,7 @@ public:
 };
 
 
-struct MyCompare
+struct Compare
 {
 	bool operator()(const Node* l, const Node* r) const { return l->a < r->a; }
 };
@@ -69,7 +69,8 @@ int main(int argc, char* argv[])
 		t.push_back(p);
 	}
 
-	t.sort();
+	t.sort(Compare());
+
 	list<Node*> ::iterator ii;
 	for (ii = t.begin(); ii != t.end(); ii++)
 	{
