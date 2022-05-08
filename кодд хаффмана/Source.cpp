@@ -29,9 +29,24 @@ public:
 	{
 		return a < t.a;
 	}
+	
 };
 
+void print_derev(Node* root, unsigned level = 0)
+{
+	if (root != NULL)
+	{
+		print_derev(root->left, level + 3);
+		for (unsigned i = 0; i < level; i++)
+		{
+			cout << "   ";
+		}
+		if (root->c)cout << root->a << " ===" << root->c << endl;
+		else cout << root->a << endl;
+		print_derev(root->right, level + 3);
 
+	}
+}
 struct Compare
 {
 	bool operator()(const Node* l, const Node* r) const { return l->a < r->a; }
@@ -70,12 +85,25 @@ int main(int argc, char* argv[])
 	}
 
 	t.sort(Compare());
-
-	list<Node*> ::iterator ii;
-	for (ii = t.begin(); ii != t.end(); ii++)
+/*
+	list<Node*> ::iterator ind;
+	for (ind = t.begin(); ind != t.end(); ind++)
 	{
-		cout << (*ii)->a << ": " << (*ii)->c << endl;
+		cout << (*ind)->a << ": " << (*ind)->c << endl;
 	}
+	*/
 
-	
+	while (t.size() != 1)
+	{
+		t.sort(Compare());
+		Node* l_son = t.front();
+		t.pop_front();
+		Node* r_son = t.front();
+		t.pop_front();
+
+		Node* parent = new Node(l_son, r_son);
+		t.push_back(parent);
+	}
+	Node* root = t.front();
+	print_derev(root);
 }
