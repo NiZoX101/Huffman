@@ -20,6 +20,15 @@ public:
 		right = R;
 		a = L->a + R->a;
 	}
+	Node(int chis, char symb)
+	{
+		a = chis;
+		c = symb;
+	}
+	bool operator <(Node t)const
+	{
+		return a < t.a;
+	}
 };
 
 
@@ -39,16 +48,33 @@ int main(int argc, char* argv[])
 
 
 	map<char, int> m;
-
 	for (int i = 0; i < s.length(); i++)
 	{
 		char c = s[i];
 		m[c]++;
 	}
+	/*
 	map<char, int>::iterator i;
 	for (i = m.begin(); i != m.end(); ++i)
 		cout << i->first << ":" << i->second << endl;
 	return 0;
+	*/
+	list<Node*> t;
+	map<char, int>::iterator ind;
+	for (ind = m.begin(); ind != m.end(); ++ind)
+	{
+		Node* p = new Node;
+		p->c = ind->first;
+		p->a = ind->second;
+		t.push_back(p);
+	}
+
+	t.sort();
+	list<Node*> ::iterator ii;
+	for (ii = t.begin(); ii != t.end(); ii++)
+	{
+		cout << (*ii)->a << ": " << (*ii)->c << endl;
+	}
 
 	
 }
