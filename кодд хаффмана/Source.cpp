@@ -54,19 +54,34 @@ struct Compare
 };
 
 
-vector<bool> code;
+vector <bool> code;
 map<char, vector<bool> >table;
 void BTable(Node* root)
 {
-	if (root->left != NULL) { code.push_back(0); BTable(root->left); }
-	if (root->right != NULL) { code.push_back(1); BTable(root->right); }
-	if (root->left == NULL && root->right == NULL)
-	{ 
-		table[root->c] = code;
+	if (root->left != NULL)
+	{
+		code.push_back(0);
+		BTable(root->left);
+	}
+
+	if (root->right != NULL)
+	{
+		code.push_back(1);
+		BTable(root->right);
+		if(!code.empty())
 		code.pop_back();
 	}
-	
-	
+
+	if (root->left == NULL && root->right == NULL)
+	{
+		
+		table[root->c] = code;
+		cout << root->c << ": ";
+		for (int i = 0; i < code.size(); i++)cout << code[i];
+		cout << endl;
+		if (!code.empty())
+		code.pop_back();
+	}
 }
 
 
@@ -120,7 +135,7 @@ int main(int argc, char* argv[])
 		t.push_back(parent);
 	}
 	Node* root = t.front();
-	//print_derev(root);
+	print_derev(root);
 	BTable(root);
 
 
