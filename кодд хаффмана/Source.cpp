@@ -138,5 +138,15 @@ int main(int argc, char* argv[])
 	print_derev(root);
 	BTable(root);
 
+	for (int i = 0; i < s.length(); i++)
+	{
+		char pstr = s[i];
+		vector<bool>str = table[pstr];
+
+		for (int j = 0; j < str.size(); j++)
+			cout << str[j];
+		cout << " ";
+
+	}
 
 }
