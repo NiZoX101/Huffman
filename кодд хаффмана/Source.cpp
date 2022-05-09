@@ -32,6 +32,7 @@ public:
 	
 };
 
+
 void print_derev(Node* root, unsigned level = 0)
 {
 	if (root != NULL)
@@ -53,6 +54,20 @@ struct Compare
 };
 
 
+vector<bool> code;
+map<char, vector<bool> >table;
+void BTable(Node* root)
+{
+	if (root->left != NULL) { code.push_back(0); BTable(root->left); }
+	if (root->right != NULL) { code.push_back(1); BTable(root->right); }
+	if (root->left == NULL && root->right == NULL)
+	{ 
+		table[root->c] = code;
+		code.pop_back();
+	}
+	
+	
+}
 
 
 
@@ -105,5 +120,8 @@ int main(int argc, char* argv[])
 		t.push_back(parent);
 	}
 	Node* root = t.front();
-	print_derev(root);
+	//print_derev(root);
+	BTable(root);
+
+
 }
