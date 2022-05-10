@@ -140,6 +140,9 @@ int main(int argc, char* argv[])
 	BTable(root);
 
 	in.clear(); in.seekg(0);
+	ofstream out("D:\\out.txt");
+
+	int count = 0; char buf = 0;
 	while (!in.eof())
 	{
 		char pstr;
@@ -147,9 +150,12 @@ int main(int argc, char* argv[])
 		vector<bool>str = table[pstr];
 
 		for (int j = 0; j < str.size(); j++)
-			cout << str[j];
-		cout << " ";
-
+		{
+			buf = buf | str[j] << (7 - count);
+			count++;
+			if (count == 8) { count = 0; out << buf; buf = 0; };
+		}
 	}
-
+	in.close();
+	out.close();
 }
