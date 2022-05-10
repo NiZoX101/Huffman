@@ -89,13 +89,14 @@ void BTable(Node* root)
 int main(int argc, char* argv[])
 {
 	////// считаем частоты символов	
-	string s = "whenthelightsout";
+	ifstream in("D:\\in.txt");
 
 
 	map<char, int> m;
-	for (int i = 0; i < s.length(); i++)
+	while (!in.eof())
 	{
-		char c = s[i];
+		char c;
+		in>>c;
 		m[c]++;
 	}
 	/*
@@ -138,9 +139,11 @@ int main(int argc, char* argv[])
 	print_derev(root);
 	BTable(root);
 
-	for (int i = 0; i < s.length(); i++)
+	in.clear(); in.seekg(0);
+	while (!in.eof())
 	{
-		char pstr = s[i];
+		char pstr;
+		in >> pstr;
 		vector<bool>str = table[pstr];
 
 		for (int j = 0; j < str.size(); j++)
