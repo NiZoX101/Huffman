@@ -76,8 +76,7 @@ int main(int argc, char* argv[])
 	map<char, int> m;
 	while (!in.eof())
 	{
-		char c;
-		in >> c;
+		char c=in.get();
 		m[c]++;
 	}
 
@@ -110,8 +109,7 @@ int main(int argc, char* argv[])
 	
 	ifstream inp("D:\\out.txt");
 	Node* p = root;
-	int count = 0; char buf;
-	inp >> buf;
+	int count = 0; char buf=inp.get();
 	while (!inp.eof())
 	{
 		bool b = buf & (1 << (7 - count) );
@@ -120,5 +118,5 @@ int main(int argc, char* argv[])
 		count++;
 		if (count == 8) { count = 0; inp >> buf; }
 	}
-	inp.close();
+	
 }

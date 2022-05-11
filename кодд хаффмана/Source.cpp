@@ -95,8 +95,7 @@ int main(int argc, char* argv[])
 	map<char, int> m;
 	while (!in.eof())
 	{
-		char c;
-		in>>c;
+		char c=in.get();
 		m[c]++;
 	}
 	/*
@@ -145,8 +144,7 @@ int main(int argc, char* argv[])
 	int count = 0; char buf = 0;
 	while (!in.eof())
 	{
-		char pstr;
-		in >> pstr;
+		char pstr=in.get();
 		vector<bool>str = table[pstr];
 
 		for (int j = 0; j < str.size(); j++)
@@ -156,6 +154,7 @@ int main(int argc, char* argv[])
 			if (count == 8) { count = 0; out << buf; buf = 0; };
 		}
 	}
+
 	in.close();
 	out.close();
 }
