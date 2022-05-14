@@ -1,0 +1,14 @@
+﻿"code Haff.cpp.exe" (Win32). Загружено "D:\Проги на с++\кодд хаффмана\x64\Debug\code Haff.cpp.exe". Символы загружены.
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\ntdll.dll". 
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\kernel32.dll". 
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\KernelBase.dll". 
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\msvcp140d.dll". 
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\vcruntime140d.dll". 
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\vcruntime140_1d.dll". 
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\ucrtbased.dll". 
+Поток 0xa9c8 завершился с кодом 0 (0x0).
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\kernel.appcore.dll". 
+"code Haff.cpp.exe" (Win32). Загружено "C:\Windows\System32\msvcrt.dll". 
+Поток 0xa4d4 завершился с кодом 0 (0x0).
+Поток 0xab6c завершился с кодом 0 (0x0).
+Программа "[28648] code Haff.cpp.exe" завершилась с кодом 0 (0x0).

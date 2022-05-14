@@ -70,7 +70,7 @@ void BTable(Node* root)
 int main(int argc, char* argv[])
 {
 	////// считаем частоты символов	
-	ifstream in("D:\\in.txt");
+	ifstream in("D:\\in.txt",ios::binary);
 
 
 	map<char, int> m;
@@ -103,20 +103,28 @@ int main(int argc, char* argv[])
 		Node* parent = new Node(l_son, r_son);
 		t.push_back(parent);
 	}
+	setlocale(LC_ALL, "Russian");
 	Node* root = t.front();
 	BTable(root);
 	in.close();
-	
-	ifstream inp("D:\\out.txt");
+	in.clear(); in.seekg(0);
+	ifstream inp("D:\\out.txt",ios::binary);
+	ofstream out("D:\\Dec.txt");
 	Node* p = root;
 	int count = 0; char buf=inp.get();
 	while (!inp.eof())
 	{
-		bool b = buf & (1 << (7 - count) );
-		if (b)p = p->right; else p = p->left;
-		if (p->left == NULL && p->right == NULL) { cout << p->c; p = root; }
+		    if ((int)buf == 13) {char bu = inp.get();
+			if ((int)bu != 10) inp.seekg(-1, ios::cur);
+			else buf = bu;
+			}
+			bool b = buf & (1 << (7 - count));
+			if (b)p = p->right; else p = p->left;
+			if (p->left == NULL && p->right == NULL) {out << p->c; /*cout << p->c;*/ p = root; }
+		
 		count++;
-		if (count == 8) { count = 0; inp >> buf; }
+		if (count == 8) { count = 0; buf=inp.get(); }
 	}
-	
+	inp.close();
+	return 0;
 }

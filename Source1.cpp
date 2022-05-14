@@ -20,123 +20,103 @@ public:
 		right = R;
 		a = L->a + R->a;
 	}
+	Node(int chis, char symb)
+	{
+		a = chis;
+		c = symb;
+	}
+	bool operator <(Node t)const
+	{
+		return a < t.a;
+	}
+
 };
-
-
-struct MyCompare
+struct Compare
 {
 	bool operator()(const Node* l, const Node* r) const { return l->a < r->a; }
 };
 
 
-vector<bool> code;
-map<char, vector<bool> > table;
-
-void BuildTable(Node* root)
+vector <bool> code;
+map<char, vector<bool> >table;
+void BTable(Node* root)
 {
 	if (root->left != NULL)
 	{
 		code.push_back(0);
-		BuildTable(root->left);
+		BTable(root->left);
 	}
 
 	if (root->right != NULL)
 	{
 		code.push_back(1);
-		BuildTable(root->right);
+		BTable(root->right);
+		if (!code.empty())
+			code.pop_back();
 	}
 
-	if (root->left == NULL && root->right == NULL) table[root->c] = code;
+	if (root->left == NULL && root->right == NULL)
+	{
 
-	code.pop_back();
+		table[root->c] = code;
+		
+		cout << endl;
+		if (!code.empty())
+			code.pop_back();
+	}
 }
+
 
 
 int main(int argc, char* argv[])
 {
 	////// считаем частоты символов	
-	ifstream f("D:\\in.txt", ios::out | ios::binary);
+	ifstream in("D:\\in.txt");
+
 
 	map<char, int> m;
-
-	while (!f.eof())
+	while (!in.eof())
 	{
-		char c = f.get();
+		char c;
+		in >> c;
 		m[c]++;
 	}
-
-
-	////// записываем начальные узлы в список list
-
+	
 	list<Node*> t;
-	for (map<char, int>::iterator itr = m.begin(); itr != m.end(); ++itr)
+	map<char, int>::iterator ind;
+	for (ind = m.begin(); ind != m.end(); ++ind)
 	{
 		Node* p = new Node;
-		p->c = itr->first;
-		p->a = itr->second;
+		p->c = ind->first;
+		p->a = ind->second;
 		t.push_back(p);
 	}
 
-
-	//////  создаем дерево		
-
+	t.sort(Compare());
 	while (t.size() != 1)
 	{
-		t.sort(MyCompare());
-
-		Node* SonL = t.front();
+		t.sort(Compare());
+		Node* l_son = t.front();
 		t.pop_front();
-		Node* SonR = t.front();
+		Node* r_son = t.front();
 		t.pop_front();
 
-		Node* parent = new Node(SonL, SonR);
+		Node* parent = new Node(l_son, r_son);
 		t.push_back(parent);
-
 	}
-
-	Node* root = t.front();   //root - указатель на вершину дерева
-
-////// создаем пары 'символ-код':			
-
-	BuildTable(root);
-
-	////// Выводим коды в файл output.txt
-
-	f.clear(); f.seekg(0); // перемещаем указатель снова в начало фа
-	ofstream g("D:\\out.txt", ios::out | ios::binary);
-
-	int count = 0; char buf = 0;
-	while (!f.eof())
-	{
-		char c = f.get();
-		vector<bool> x = table[c];
-		for (int n = 0; n < x.size(); n++)
-		{
-			buf = buf | x[n] << (7 - count);
-			count++;
-			if (count == 8) { count = 0;   g << buf; buf = 0; }
-		}
-	}
-
-	f.close();
-	g.close();
-
-	///// считывание из файла output.txt и преобразование обратно
-
-	ifstream F("D:\\out.txt", ios::in | ios::binary);
-
-	setlocale(LC_ALL, "Russian"); // чтоб русские символы отображались в командной строке
-
+	Node* root = t.front();
+	BTable(root);
+	ifstream in("D:\\out.txt");
 	Node* p = root;
 	count = 0; char byte;
-	byte = F.get();
-	while (!F.eof())
+	byte = in.get();
+	while (!in.eof())
 	{
 		bool b = byte & (1 << (7 - count));
 		if (b) p = p->right; else p = p->left;
 		if (p->left == NULL && p->right == NULL) { cout << p->c; p = root; }
 		count++;
-		if (count == 8) { count = 0; byte = F.get(); }
+		if (count == 8) { count = 0; byte = in.get(); }
 	}
 
 	F.close();

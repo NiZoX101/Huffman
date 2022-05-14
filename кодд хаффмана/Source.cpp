@@ -76,9 +76,9 @@ void BTable(Node* root)
 	{
 		
 		table[root->c] = code;
-		cout << root->c << ": ";
-		for (int i = 0; i < code.size(); i++)cout << code[i];
-		cout << endl;
+		//cout << root->c << ": ";
+		//for (int i = 0; i < code.size(); i++)cout << code[i];
+		//cout << endl;
 		if (!code.empty())
 		code.pop_back();
 	}
@@ -137,10 +137,20 @@ int main(int argc, char* argv[])
 	Node* root = t.front();
 	print_derev(root);
 	BTable(root);
+	int i = 0;
+	char pstr[256];
+	while(!in.eof())
+	{
+		pstr[i] = in.get();
+		vector<bool>str = table[(char)pstr];
+
+		for (int j = 0; j < str.size(); j++)
+			cout << str[j];
+		cout << " ";
+	}
 
 	in.clear(); in.seekg(0);
 	ofstream out("D:\\out.txt");
-
 	int count = 0; char buf = 0;
 	while (!in.eof())
 	{
@@ -151,10 +161,10 @@ int main(int argc, char* argv[])
 		{
 			buf = buf | str[j] << (7 - count);
 			count++;
-			if (count == 8) { count = 0; out << buf; buf = 0; };
+			if (count == 8) { count = 0; out << buf; cout << "(" << (int)buf << ")"; buf = 0; };
+			
 		}
 	}
-
 	in.close();
 	out.close();
 }
