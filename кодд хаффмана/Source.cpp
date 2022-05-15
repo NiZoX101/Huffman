@@ -83,6 +83,14 @@ void BTable(Node* root)
 		code.pop_back();
 	}
 }
+void Szhat(float dlin_nach,float dlin_kon)
+{
+	float zh = dlin_nach/dlin_kon;
+	cout << fixed;
+	cout.precision(2);
+	cout << "Dolzhno szhat v: "<<zh;
+
+}
 
 
 
@@ -99,6 +107,8 @@ int main(int argc, char* argv[])
 		char c=in.get();
 		m[c]++;
 	}
+	float dlin_ish = 0;
+	float dlin_kon = 0;
 	/*
 	map<char, int>::iterator i;
 	for (i = m.begin(); i != m.end(); ++i)
@@ -112,7 +122,7 @@ int main(int argc, char* argv[])
 		Node* p = new Node;
 		chast << ' ';
 		p->c = ind->first; chast << ind->first; 
-		p->a = ind->second; chast << ind->second;
+		p->a = ind->second; chast << ind->second; dlin_ish += ind->second;
 		t.push_back(p);
 	}
 
@@ -137,7 +147,7 @@ int main(int argc, char* argv[])
 		t.push_back(parent);
 	}
 	Node* root = t.front();
-	print_derev(root);
+	//print_derev(root);
 	BTable(root);
 	int i = 0;
 	char pstr[256];
@@ -163,12 +173,12 @@ int main(int argc, char* argv[])
 		{
 			buf = buf | str[j] << (7 - count);
 			count++;
-			if (count == 8) { count = 0; out << buf; cout << "(" << (int)buf << ")"; buf = 0; };
+			if (count == 8) { count = 0; out << buf; dlin_kon += 1; buf = 0; };
 			
 		}
 
 	}
-	cout << count;
+	Szhat(dlin_ish, dlin_kon);
 	in.close();
 	chast.close();
 	out.close();

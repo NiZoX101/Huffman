@@ -65,23 +65,37 @@ void BTable(Node* root)
 	}
 }
 
-
-
+void Sravn()
+{
+	ifstream ind("D:\\in.txt");
+	ifstream outd("D:\\Dec.txt");
+	int d = 0; int din = 0; int dout = 0;
+	while (!ind.eof()||!outd.eof())
+	{
+		char s1, s2;
+		s1 = ind.get(); din++; cout << s1<<' ';
+		s2 = outd.get(); dout++; cout << s2 << endl;
+		if (s1 == s2)d++;
+	}
+	if ((d == din) && (din == dout))cout << "Ravny"; else cout << "Ne ravny";
+	cout << d;
+	ind.close();
+	outd.close();
+}
 int main(int argc, char* argv[])
 {
 	////// считаем частоты символов	
 	ifstream chast("D:\\chast.txt");
 
-
+	int dlin = 0;
 	map<char, int> m;
 	while (!chast.eof())
 	{
 		chast.seekg(1,ios::cur);
 		char c=chast.get();
-		cout << c << endl;
 		int g;
 		chast>>g;
-		cout << g << endl;
+		dlin += g;
 		m[c] = g;
 		
 	}
@@ -130,7 +144,9 @@ int main(int argc, char* argv[])
 		count++;
 		if (count == 8) { count = 0; buf=inp.get(); }
 	}
+	out.close();
 	inp.close();
 	chast.close();
+	Sravn();
 	return 0;
 }
