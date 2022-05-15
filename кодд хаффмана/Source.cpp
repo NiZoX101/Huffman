@@ -90,6 +90,7 @@ int main(int argc, char* argv[])
 {
 	////// считаем частоты символов	
 	ifstream in("D:\\in.txt");
+	ofstream chast("D:\\chast.txt");
 
 
 	map<char, int> m;
@@ -109,8 +110,9 @@ int main(int argc, char* argv[])
 	for (ind = m.begin(); ind != m.end(); ++ind)
 	{
 		Node* p = new Node;
-		p->c = ind->first;
-		p->a = ind->second;
+		chast << ' ';
+		p->c = ind->first; chast << ind->first; 
+		p->a = ind->second; chast << ind->second;
 		t.push_back(p);
 	}
 
@@ -164,7 +166,10 @@ int main(int argc, char* argv[])
 			if (count == 8) { count = 0; out << buf; cout << "(" << (int)buf << ")"; buf = 0; };
 			
 		}
+
 	}
+	cout << count;
 	in.close();
+	chast.close();
 	out.close();
 }

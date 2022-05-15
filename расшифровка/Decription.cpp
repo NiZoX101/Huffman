@@ -70,14 +70,20 @@ void BTable(Node* root)
 int main(int argc, char* argv[])
 {
 	////// считаем частоты символов	
-	ifstream in("D:\\in.txt",ios::binary);
+	ifstream chast("D:\\chast.txt");
 
 
 	map<char, int> m;
-	while (!in.eof())
+	while (!chast.eof())
 	{
-		char c=in.get();
-		m[c]++;
+		chast.seekg(1,ios::cur);
+		char c=chast.get();
+		cout << c << endl;
+		int g;
+		chast>>g;
+		cout << g << endl;
+		m[c] = g;
+		
 	}
 
 	list<Node*> t;
@@ -106,8 +112,7 @@ int main(int argc, char* argv[])
 	setlocale(LC_ALL, "Russian");
 	Node* root = t.front();
 	BTable(root);
-	in.close();
-	in.clear(); in.seekg(0);
+	
 	ifstream inp("D:\\out.txt",ios::binary);
 	ofstream out("D:\\Dec.txt");
 	Node* p = root;
@@ -126,5 +131,6 @@ int main(int argc, char* argv[])
 		if (count == 8) { count = 0; buf=inp.get(); }
 	}
 	inp.close();
+	chast.close();
 	return 0;
 }
