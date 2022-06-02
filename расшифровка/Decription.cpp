@@ -86,7 +86,8 @@ int main(int argc, char* argv[])
 {
 	////// считаем частоты символов	
 	ifstream chast("D:\\chast.txt");
-
+	int nezn = 0;
+	chast>>nezn;
 	int dlin = 0;
 	map<char, int> m;
 	while (!chast.eof())
@@ -131,19 +132,30 @@ int main(int argc, char* argv[])
 	ofstream out("D:\\Dec.txt");
 	Node* p = root;
 	int count = 0; char buf=inp.get();
+	char bu=inp.get();
 	while (!inp.eof())
 	{
-		    if ((int)buf == 13) {char bu = inp.get();
-			if ((int)bu != 10) inp.seekg(-1, ios::cur);
-			else buf = bu;
+		cout << buf << "<-";
+		    if ((int)buf == 13) 
+			{	
+				if ((int)bu == 10) buf = bu;
 			}
 			bool b = buf & (1 << (7 - count));
 			if (b)p = p->right; else p = p->left;
-			if (p->left == NULL && p->right == NULL) {out << p->c; /*cout << p->c;*/ p = root; }
-		
+			if (p->left == NULL && p->right == NULL) { out << p->c; /*cout << p->c;*/ p = root; }
 		count++;
-		if (count == 8) { count = 0; buf=inp.get(); }
+		if (count == 8) { count = 0; buf = bu; bu = inp.get();}
 	}
+	cout << endl << buf << endl;
+	while (count != nezn)
+	{
+		bool b = buf & (1 << (7 - count));
+		if (b)p = p->right; else p = p->left;
+		if (p->left == NULL && p->right == NULL) { out << p->c; /*cout << p->c;*/ p = root; }
+		count++;
+	}
+
+	
 	out.close();
 	inp.close();
 	chast.close();

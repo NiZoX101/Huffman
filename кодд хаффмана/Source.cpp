@@ -102,10 +102,12 @@ int main(int argc, char* argv[])
 
 
 	map<char, int> m;
+	char c = in.get();
 	while (!in.eof())
 	{
-		char c=in.get();
+		
 		m[c]++;
+		c=in.get();
 	}
 	float dlin_ish = 0;
 	float dlin_kon = 0;
@@ -117,6 +119,7 @@ int main(int argc, char* argv[])
 	*/
 	list<Node*> t;
 	map<char, int>::iterator ind;
+	chast << ' ';
 	for (ind = m.begin(); ind != m.end(); ++ind)
 	{
 		Node* p = new Node;
@@ -146,8 +149,9 @@ int main(int argc, char* argv[])
 		Node* parent = new Node(l_son, r_son);
 		t.push_back(parent);
 	}
+
 	Node* root = t.front();
-	//print_derev(root);
+	print_derev(root);
 	BTable(root);
 	int i = 0;
 	char pstr[256];
@@ -164,10 +168,11 @@ int main(int argc, char* argv[])
 	in.clear(); in.seekg(0);
 	ofstream out("D:\\out.txt");
 	int count = 0; char buf = 0;
+	char pst = in.get();
 	while (!in.eof())
 	{
-		char pstr=in.get();
-		vector<bool>str = table[pstr];
+		
+		vector<bool>str = table[pst];
 
 		for (int j = 0; j < str.size(); j++)
 		{
@@ -176,8 +181,12 @@ int main(int argc, char* argv[])
 			if (count == 8) { count = 0; out << buf; dlin_kon += 1; buf = 0; };
 			
 		}
+		pst = in.get();
 
 	}
+	out << buf;
+	chast.seekp(0, ios::beg);
+	chast << count;
 	Szhat(dlin_ish, dlin_kon);
 	in.close();
 	chast.close();
